@@ -30,9 +30,9 @@ State      | varchar
 
 AddressId 是上表主键
 
-<font color=yellow>答案：</font>
+<font color=#0099ff >答案：</font>
 
- ```
+ ```Mysql
  # Write your MySQL query statement below
  SELECT FirstName,LastName,City,State 
  FROM person p 
@@ -57,8 +57,8 @@ eg.
 ---|
 200  | 
 
-<font color=yellow>答案：</font>
-```
+<font color=#0099ff >答案：</font>
+```Mysql
 # Write your MySQL query statement below 
 select IFNULL((select Distinct Salary from Employee order by Salary DESC limit 1,1),null) as SecondHighestSalary 
 ```
@@ -78,8 +78,8 @@ select IFNULL((select Distinct Salary from Employee order by Salary DESC limit 1
 ---|
 200  | 
 
-<font color=yellow>答案：</font>
-```
+<font color=#0099ff >答案：</font>
+```Mysql
 # 创建函数getNthHighestSalary，参数N为INT，返回类型为INT
 CREATE FUNCTION getNthHighestSalary(N INT) RETURNS INT
 # 开始
