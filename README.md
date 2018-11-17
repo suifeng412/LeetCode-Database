@@ -41,6 +41,7 @@ AddressId 是上表主键
 编写一个 SQL 查询，获取 Employee 表中第二高的薪水（Salary） 。  
 
 表1：Employee 
+
  id | Salary     
 ---|---
 1  | 100     
