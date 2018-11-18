@@ -125,7 +125,7 @@ eg.
  3.65  | 3    
  3.50  | 4    
  
-
+<span style="color: #0099ff">答案：</span>
  ```Mysql
  # Write your MySQL query statement below
  # 方法一
@@ -159,10 +159,11 @@ eg.
 eg.  
 例如，给定上面的 Logs 表， 1 是唯一连续出现至少三次的数字。
 
- ConsecutiveNums 
----
- 1               
+ ConsecutiveNums |
+---|
+ 1 |              
 
+<span style="color: #0099ff">答案：</span>
 ```Mysql
 # Write your MySQL query statement below
 # 方法一
@@ -202,10 +203,11 @@ Employee 表包含所有员工，他们的经理也属于员工。每个员工�
 eg.  
 在上面的表格中，Joe 是唯一一个收入超过他的经理的员工。
 
- Employee 
----
- Joe      
+ Employee |
+---|
+ Joe |      
 
+<span style="color: #0099ff">答案：</span>
 ```Mysql
 SELECT e.Name Employee 
 FROM
