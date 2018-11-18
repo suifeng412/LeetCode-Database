@@ -3,6 +3,7 @@
 + [176. 第二高的薪水](#j2)
 + [177. 第N高的薪水](#j3)
 + [178. 分数排名](#j4)
++ [180. 连续出现的数字](#j5)
 
 
 
@@ -141,10 +142,48 @@ eg.
 ```
 
 
+### <span id='j5'>连续出现的数字</span>
+题目：编写一个 SQL 查询，查找所有至少连续出现三次的数字。  
 
+ Id  | Num     
+---|---
+ 1  |  1  
+ 2  |  1  
+ 3  |  1  
+ 4  |  2  
+ 5  |  1  
+ 6  |  2  
+ 7  |  2  
 
+eg.  
+例如，给定上面的 Logs 表， 1 是唯一连续出现至少三次的数字。
 
+ ConsecutiveNums 
+---
+ 1               
 
+```Mysql
+# Write your MySQL query statement below
+# 方法一
+select distinct tab.Num ConsecutiveNums from
+(
+select 
+distinct l2.Num, 
+(select l3.id from Logs l3 where l3.Num=l2.Num and l3.id=(l2.id+1)) id3,
+(select l1.id from Logs l1 where l1.Num=l2.Num and l1.id=(l2.id-1)) id1
+from Logs l2 
+) tab 
+where tab.id1>=0 and tab.id3>=0;
+
+# 方法二
+select  distinct l.Num ConsecutiveNums from
+Logs l
+left join Logs l2 ON l2.id = (l.id-1) AND l2.Num=l.Num
+left join Logs l3 ON l3.id = (l.id+1) AND l3.Num=l.Num
+where 
+l2.id is not null
+AND l3.id is not null;
+```
 
 
 
