@@ -2,6 +2,7 @@
 + [175. 组合两个表](#j1)
 + [176. 第二高的薪水](#j2)
 + [177. 第N高的薪水](#j3)
++ [178. 分数排名](#j4)
 
 
 
@@ -96,9 +97,48 @@ END
 ```
 
 
+### <span id='j4'>178. 分数排名</span>
+题目：编写一个 SQL 查询来实现分数排名。如果两个分数相同，则两个分数排名（Rank）相同。请注意，平分后的下一个名次应该是下一个连续的整数值。换句话说，名次之间不应该有“间隔”。  
 
+表1：  
 
+ Id | Score     
+---|---
+1  | 3.50     
+2  | 3.65    
+3  | 4.00
+4  | 3.85
+5  | 4.00
+6  | 3.65
 
+eg.   
+例如，根据上述给定的 Scores 表，你的查询应该返回（按分数从高到低排列）：  
+
+ Score  | Rank     
+---|---
+ 4.00  | 1    
+ 4.00  | 1    
+ 3.85  | 2    
+ 3.65  | 3    
+ 3.65  | 3    
+ 3.50  | 4    
+ 
+
+ ```Mysql
+ # Write your MySQL query statement below
+ # 方法一
+ select Score,
+ (select count(distinct Score) from Scores as s2 where s2.Score >= s1.Score) Rank 
+ from Scores as s1
+ order by Score DESC;
+
+# 方法二
+ select s.Score, count(distinct s2.Score) Rank
+ from Scores s
+ left join Scores s2 ON s2.Score >= s.Score
+ group by s.Id
+ order by s.score Desc;
+```
 
 
 
