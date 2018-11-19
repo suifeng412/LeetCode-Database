@@ -5,6 +5,7 @@
 + [178. 分数排名](#j4)
 + [180. 连续出现的数字](#j5)
 + [181. 超过经理收入的员工](#j6)
++ [182. 查找重复的电子邮箱](#j7)
 
 
 
@@ -218,9 +219,27 @@ WHERE e.Salary > m.Salary;
 
 
 
+### <span id='#j7'>查找重复的电子邮箱</span>
 
+题目：编写一个 SQL 查询，查找 Person 表中所有重复的电子邮箱。   
 
+ Id | Email   
+---|---
+ 1  | a@b.com 
+ 2  | c@d.com 
+ 3  | a@b.com 
 
+eg.   
+根据以上输入，你的查询应返回以下结果：
+
+ Email   
+---
+ a@b.com 
+
+```mysql
+# Write your MySQL query statement below
+SELECT Email FROM Person GROUP BY Email HAVING count(id)>1;
+```
 
 
 
