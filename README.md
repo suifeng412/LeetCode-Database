@@ -7,6 +7,7 @@
 + [181. 超过经理收入的员工](#j6)
 + [182. 查找重复的电子邮箱](#j7)
 + [183. 从不订购的用户](#j8)
++ [184. 部门工资最高的员工](#j9)
 
 
 
@@ -286,8 +287,59 @@ WHERE id not in(SELECT CustomerId FROM Orders);
 
 
 
+### <span id='j9'>184. 部门工资最高的员工</span>
+题目：  
+Employee 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id。  
 
+ Id | Name  | Salary | DepartmentId 
+---|---|---|---
+ 1  | Joe   | 70000  | 1            
+ 2  | Henry | 80000  | 2            
+ 3  | Sam   | 60000  | 2            
+ 4  | Max   | 90000  | 1            
 
+Department 表包含公司所有部门的信息。  
 
+ Id | Name     
+---|---
+ 1  | IT       
+ 2  | Sales    
+ 
+编写一个 SQL 查询，找出每个部门工资最高的员工。例如，根据上述给定的表格，Max 在 IT 部门有最高工资，Henry 在 Sales 部门有最高工资。  
 
+eg.   
+
+ Department | Employee | Salary 
+---|---|---
+ IT         | Max      | 90000  
+ Sales      | Henry    | 80000  
+ 
+```mysql
+# Write your MySQL query statement below
+# 方法一
+SELECT d.Name Department,tab2.Name Employee,tab2.Salary 
+FROM 
+(
+    SELECT e.DepartmentId,e.Salary,e.Name
+    FROM 
+    (   
+        SELECT max(Salary) Salary,DepartmentId FROM Employee GROUP BY DepartmentId
+    ) tab
+    LEFT JOIN Employee e ON e.Salary=tab.Salary and e.DepartmentId=tab.DepartmentId
+) tab2  
+LEFT JOIN Department d  ON tab2.DepartmentId = d.id 
+WHERE tab2.DepartmentId>0 and d.id>0;
+
+# 方法二
+select d.Name Department,e.Name Employee,e.Salary
+from Employee e 
+left join Department d ON e.DepartmentId=d.Id
+left join 
+(
+    select max(Salary) Salary,DepartmentId from Employee group by DepartmentId
+) as s
+ON s.Salary=e.Salary AND s.DepartmentId=e.DepartmentId 
+where 
+s.Salary is not null AND d.Name is not null;
+```
 
