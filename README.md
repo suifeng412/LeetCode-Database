@@ -341,5 +341,14 @@ left join
 ON s.Salary=e.Salary AND s.DepartmentId=e.DepartmentId 
 where 
 s.Salary is not null AND d.Name is not null;
+
+# 方法三
+select d.Name Department,e.Name Employee,e.Salary from Employee e 
+left join Department d ON e.DepartmentId=d.Id
+where 
+(
+    select count(distinct e2.Salary) from Employee e2 where e.DepartmentId=e2.DepartmentId AND e2.Salary>=e.Salary
+) <= 1 
+AND d.Name is not null;
 ```
 
