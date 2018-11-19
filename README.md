@@ -6,6 +6,7 @@
 + [180. 连续出现的数字](#j5)
 + [181. 超过经理收入的员工](#j6)
 + [182. 查找重复的电子邮箱](#j7)
++ [183. 从不订购的用户](#j8)
 
 
 
@@ -219,7 +220,7 @@ WHERE e.Salary > m.Salary;
 
 
 
-### <span id='#j7'>查找重复的电子邮箱</span>
+### <span id='j7'>182. 查找重复的电子邮箱</span>
 
 题目：编写一个 SQL 查询，查找 Person 表中所有重复的电子邮箱。   
 
@@ -243,7 +244,45 @@ SELECT Email FROM Person GROUP BY Email HAVING count(id)>1;
 
 
 
+### <span id='j8'>183. 从不订购的用户</span>
+题目：某网站包含两个表，Customers 表和 Orders 表。编写一个 SQL 查询，找出所有从不订购任何东西的客户。  
 
+Customers 表：  
+
+ Id | Name  
+---|---
+ 1  | Joe   
+ 2  | Henry 
+ 3  | Sam   
+ 4  | Max   
+
+
+Orders 表：  
+
+ Id | CustomerId 
+---|---
+ 1  | 3          
+ 2  | 1          
+
+eg.  
+例如给定上述表格，你的查询应返回：  
+
+ Customers 
+---|
+ Henry     
+ Max       
+  
+```mysql
+# Write your MySQL query statement below
+# 方法一
+SELECT c.Name Customers FROM Customers c
+LEFT JOIN Orders o ON c.id=o.CustomerId 
+WHERE o.CustomerId is null;
+
+# 方法二
+SELECT Name Customers FROM Customers 
+WHERE id not in(SELECT CustomerId FROM Orders);
+```
 
 
 
