@@ -8,6 +8,7 @@
 + [182. 查找重复的电子邮箱](#j7)
 + [183. 从不订购的用户](#j8)
 + [184. 部门工资最高的员工](#j9)
++ [185. 部门工资前三高的员工](#j10)
 
 
 
@@ -351,4 +352,83 @@ where
 ) <= 1 
 AND d.Name is not null;
 ```
+
+
+
+### <span id='j10'>185. 部门工资前三高的员工</span>
+题目：  
+Employee 表包含所有员工信息，每个员工有其对应的 Id, salary 和 department Id 。  
+
+ Id | Name  | Salary | DepartmentId 
+---|---|---|---
+ 1  | Joe   | 70000  | 1            
+ 2  | Henry | 80000  | 2            
+ 3  | Sam   | 60000  | 2            
+ 4  | Max   | 90000  | 1            
+ 5  | Janet | 69000  | 1            
+ 6  | Randy | 85000  | 1     
+ 
+Department 表包含公司所有部门的信息。  
+
+ Id | Name     
+---|---
+ 1  | IT       
+ 2  | Sales    
+
+编写一个 SQL 查询，找出每个部门工资前三高的员工。例如，根据上述给定的表格，查询结果应返回：  
+
+ Department | Employee | Salary 
+---|---|---
+ IT         | Max      | 90000  
+ IT         | Randy    | 85000  
+ IT         | Joe      | 70000  
+ Sales      | Henry    | 80000  
+ Sales      | Sam      | 60000  
+        
+```mysql
+# Write your MySQL query statement below
+# 第一钟方法
+SELECT d.Name Department, e.Name Employee, e.Salary 
+FROM Employee e
+LEFT JOIN Department d ON e.DepartmentId = d.Id
+WHERE 
+d.Id>0 AND
+(SELECT COUNT(distinct Salary) FROM Employee WHERE DepartmentId=e.DepartmentId AND Salary >=e.Salary )<=3
+ORDER BY d.Name;
+
+# 第二种方法
+select d.Name Department, e.Name Employee, e.Salary 
+from Employee e
+left join Department d on e.DepartmentId = d.Id
+where 
+e.Salary>=
+ifnull(
+(
+    select distinct Salary from Employee where      
+    DepartmentId=e.DepartmentId order by Salary desc limit 2,1
+) 
+, 0    )
+and d.Name is not null;
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
