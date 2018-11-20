@@ -9,6 +9,7 @@
 + [183. 从不订购的用户](#j8)
 + [184. 部门工资最高的员工](#j9)
 + [185. 部门工资前三高的员工](#j10)
++ [196. 删除重复的电子邮箱](#j11)
 
 
 
@@ -412,6 +413,32 @@ and d.Name is not null;
 ```
 
 
+### <span id='j11'>196. 删除重复的电子邮箱</span>
+题目：编写一个 SQL 查询，来删除 Person 表中所有重复的电子邮箱，重复的邮箱里只保留 Id 最小 的那个。   
+
+ Id | Email            
+---|---
+ 1  | john@example.com 
+ 2  | bob@example.com  
+ 3  | john@example.com 
+
+eg.  
+例如，在运行你的查询语句之后，上面的 Person 表应返回以下几行:  
+
+ Id | Email            
+---|---
+ 1  | john@example.com 
+ 2  | bob@example.com  
+
+```mysql
+# Write your MySQL query statement below
+DELETE FROM `Person` 
+WHERE Id  not in 
+( 
+    SELECT id FROM
+        (SELECT min(Id) id FROM `Person` GROUP BY Email) tab
+);
+```
 
 
 
