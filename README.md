@@ -12,7 +12,7 @@
 + [196. 删除重复的电子邮箱](#j11)
 + [197. 上升的温度](#j12)
 + [262. 行程和用户](#j13)
-+ [595. 大的国家](#14)
++ [595. 大的国家](#j14)
 
 
 
@@ -449,10 +449,10 @@ WHERE Id  not in
 
  Id(INT) | RecordDate(DATE) | Temperature(INT) 
 ---|---|---
-       1 |       2015-01-01 |               10 
-       2 |       2015-01-02 |               25 
-       3 |       2015-01-03 |               20 
-       4 |       2015-01-04 |               30 
+ 1 |   2015-01-01 |    10 
+ 2 |   2015-01-02 |    25 
+ 3 |   2015-01-03 |    20 
+ 4 |   2015-01-04 |    30 
 
 eg.  
 例如，根据上述给定的 Weather 表格，返回如下 Id:  
@@ -494,18 +494,18 @@ where w2.Id is not null;
  9  |     3     |    10     |    12   |     completed      |2013-10-03
  10 |     4     |    13     |    12   | cancelled_by_driver|2013-10-03
 
-Users 表存所有用户。每个用户有唯一键 Users_Id。Banned 表示这个用户是否被禁止，Role 则是一个表示（‘client’, ‘driver’, ‘partner’）的枚举类型。  
+Users 表存所有用户。每个用户有唯一键 Users_Id。Banned 表示这个用户是否被禁止，Role 则是一个表示（‘client’, ‘driver’, ‘partner’）的枚举类型。    
 
  Users_Id | Banned |  Role  
 ---|---|---
-    1     |   No   | client 
-    2     |   Yes  | client 
-    3     |   No   | client 
-    4     |   No   | client 
-    10    |   No   | driver 
-    11    |   No   | driver 
-    12    |   No   | driver 
-    13    |   No   | driver 
+ 1   |   No   | client 
+ 2   |   Yes  | client 
+ 3   |   No   | client 
+ 4   |   No   | client 
+ 10  |   No   | driver 
+ 11  |   No   | driver 
+ 12  |   No   | driver 
+ 13  |   No   | driver 
 
 写一段 SQL 语句查出 2013年10月1日 至 2013年10月3日 期间非禁止用户的取消率。基于上表，你的 SQL 语句应返回如下结果，取消率（Cancellation Rate）保留两位小数。  
 
