@@ -16,6 +16,7 @@
 + [596. 超过5名学生的课](#j15)
 + [601. 体育馆的人流量](#j16)
 + [620. 有趣的电影](#j17)
++ [626. 换座位](#j8)
 
 
 
@@ -684,5 +685,77 @@ ORDER BY s1.id;
 # Write your MySQL query statement below
 SELECT id,movie,description,rating FROM cinema WHERE description != 'boring' AND (id%2)=1 ORDER BY rating DESC;
 ```
+
+
+
+### <span id='j18'>626. 换座位</span>
+题目：
+小美是一所中学的信息科技老师，她有一张 seat 座位表，平时用来储存学生名字和与他们相对应的座位 id。  
+其中纵列的 id 是连续递增的  
+小美想改变相邻俩学生的座位。 
+你能不能帮她写一个 SQL query 来输出小美想要的结果呢？  
+
+   id   | student 
+---|---
+   1    | Abbot   
+   2    | Doris   
+   3    | Emerson 
+   4    | Green   
+   5    | Jeames  
+
+eg.  
+假如数据输入的是上表，则输出结果如下：  
+
+   id   | student 
+---|---
+   1    | Doris   
+   2    | Abbot   
+   3    | Green   
+   4    | Emerson 
+   5    | Jeames  
+
+注意：  
+如果学生人数是奇数，则不需要改变最后一个同学的座位。  
+
+```mysql
+# Write your MySQL query statement below
+# 方法一
+SELECT IFNULL(tab.id, s.id) id, IFNULL(tab.student, s.student) student
+FROM seat s 
+LEFT JOIN 
+(SELECT if(id%2=0,id-1,id+1) id,student FROM seat) AS tab 
+ON s.id = tab.id
+ORDER BY id;
+
+# 方法二
+select 
+* 
+from
+(
+select 
+case 
+when s.id%2=0 then s.id-1
+when s.id%2=1 and s.id<tab.num then s.id+1
+else s.id end
+id, s.student
+from seat s
+left join 
+(
+    select count(1) num from seat
+) as tab on 1=1
+) a
+order by a.id;
+```
+
+
+
+
+
+
+
+
+
+
+
 
 
